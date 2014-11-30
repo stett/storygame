@@ -10,6 +10,15 @@ div#content {
 
 
 /*
+ * Stories
+ */
+
+div.story div.title {
+    border-bottom: 1px solid gray;
+}
+
+
+/*
  * Forms
  */
 

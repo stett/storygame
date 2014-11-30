@@ -82,5 +82,8 @@ class StoryAuthor(models.Model):
         self.active = True
         self.save()
 
+    def __str__(self):
+        return self.user
+
     class Meta():
         ordering = ['order']

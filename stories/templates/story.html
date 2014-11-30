@@ -4,7 +4,18 @@
 {% block content %}
 
 <div class="story">
-    {{ story.get_cat|markdown }}
+    <div class="title">
+        <h1>{{ story }}</h1>
+        <sub>
+            By: 
+            {% for author in story.authors.all %}
+            {{ author.user }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </sub>
+    </div>
+    <div class="body">
+        {{ story.get_cat|markdown }}
+    </div>
 </div>
 
 {% endblock %}
