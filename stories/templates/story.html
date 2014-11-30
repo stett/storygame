@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load stories %}
+
+{% block content %}
+
+<div class="story">
+    {{ story.get_cat|markdown }}
+</div>
+
+{% endblock %}

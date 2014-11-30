@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load stories %}
+
+{% block content %}
+
+{#} Story Title {#}
+<h2>{{ story }}</h2>
+
+{#} Story Form {#}
+<form class="story" method="post">
+    {% csrf_token %}
+
+    {# Previous Lead-in #}
+    <div class="story-fields">
+        <div class="lead-in">
+            <div class="coverup"></div>
+            <div class="content">
+                ... {{ story.get_last_chunk.lead_in|markdown }}
+            </div>
+        </div>
+        {{ form.body }}
+        {{ form.lead_in }}
+    </div>
+
+    <label>
+        {{ form.committed }}
+        Commit 
+    </label>
+
+    {# Hidden Fields #}
+    {{ form.story }}
+    {{ form.user }}
+
+    {# Submit buttons #}
+    <p>
+        {# Save Button #}
+        <input type="submit" name="submit" value="Save">
+
+        {# Only show commit button if it's been saved once #}
+        {% comment %}
+        {% if form.instance.pk %}
+        <input type="submit" name="submit" value="Commit">
+        {% endif %}
+        {% endcomment %}
+    </p>
+</form>
+
+{% endblock %}

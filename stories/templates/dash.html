@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load stories %}
+
+{% block content %}
+
+<h2>Unfinished Chunks</h2>
+<ul>
+    {% for chunk in chunks %}
+    <li>
+        <a href="{% url 'chunk' chunk.story.pk chunk.pk %}">{{ chunk.body|clip:25 }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<h2>Stories:</h2>
+<ul>
+    {% for story in stories %}
+    <li>
+        <a href="{% url 'story' story.pk %}">{{ story }}</a>
+        {% comment %}
+        {% if story.get_active_author.user = user %}
+        <a href="{% url 'chunk' story %}">{{ story }}</a>
+        {% else %}
+        {{ story }} ({{ story.get_active_author.user }})
+        {% endif %}
+        {% endcomment %}
+    </li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}

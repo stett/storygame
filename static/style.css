@@ -1,0 +1,63 @@
+/*
+ * Main Structure
+ */
+
+div#content {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+
+/*
+ * Forms
+ */
+
+form.story div.story-fields {
+    box-shadow: 0 0 5px gray;
+}
+
+form.story label {
+    display: block;
+}
+
+form.story textarea {
+    display: block;
+    width: 100%;
+    resize: vertical;
+    font-family: "Times New Roman", Times, serif;
+    background-color: #FFE56B;
+    border: none;
+    padding: 5px;
+}
+
+form.story textarea:focus {
+    outline: none;
+}
+
+form.story div.lead-in, form.story textarea#id_body {
+    border-bottom: 1px dashed gray;
+}
+
+form.story div.lead-in {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12px;
+    background-color: #FFE56B;
+    position: relative;
+}
+
+form.story div.lead-in div.content {
+    padding: 5px;
+}
+
+form.story div.lead-in div.coverup {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: -webkit-gradient(
+        linear, left top, left bottom,
+        from(rgba(255, 229, 107, 1)),
+        to(rgba(0, 0, 0, 0)),
+        color-stop(.05,#FFE56B)
+    );
+}
