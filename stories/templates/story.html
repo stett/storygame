@@ -6,12 +6,12 @@
 <div class="story">
     <div class="title">
         <h1>{{ story }}</h1>
-        <sub>
+        <div class="authors">
             By: 
             {% for author in story.authors.all %}
             {{ author.user }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
-        </sub>
+        </div>
     </div>
     <div class="body">
         {{ story.get_cat|markdown }}

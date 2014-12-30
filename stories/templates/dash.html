@@ -3,9 +3,9 @@
 
 {% block content %}
 
-<h2>Unfinished Chunks</h2>
+<h2>Unfinished Story Chunks</h2>
 <ul>
-    {% for chunk in chunks %}
+    {% for chunk in drafts %}
     <li>
         <a href="{% url 'chunk' chunk.story.pk chunk.pk %}">{{ chunk.body|clip:25 }}</a>
     </li>

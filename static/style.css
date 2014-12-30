@@ -2,10 +2,31 @@
  * Main Structure
  */
 
+html, body {
+    font-family: "Arial", sans-serif;
+    font-size: 12px;
+}
+
 div#content {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/*
+ * Nav/Dash/Etc
+ */
+
+span.username {
+    float: right;
 }
 
 
@@ -13,8 +34,91 @@ div#content {
  * Stories
  */
 
-div.story div.title {
+div.story, div.story-preview {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 14px;
+}
+
+div.story div.title, div.story-preview div.title {
     border-bottom: 1px solid gray;
+}
+
+div.story div.title h1, div.story-preview div.title h1 {
+    margin-bottom: 0;
+}
+
+div.story div.authors {
+    font-size: 12px;
+    padding-bottom: 2px;
+}
+
+div.story p, div.story-preview p {
+    margin: 7px 0;
+}
+
+div.story-preview {
+    box-shadow: 0 0 5px gray;
+    background-color: #FFE56B;
+}
+
+div.story-preview div.title {
+    padding: 5px;
+    font-size: 18px;
+}
+
+div.story-preview div.preview {
+    position: relative;
+}
+
+div.story-preview div.content {
+    padding: 5px;
+}
+
+div.story-preview div.coverdown {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-image: -webkit-gradient(
+        linear, left top, left bottom,
+        from(rgba(0, 0, 0, 0)),
+        to(rgba(255, 229, 107, 1)),
+        color-stop(.95, #FFE56B)
+    );
+}
+
+div.story-preview a {
+    position: absolute;
+    z-index: 2;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px;
+    border: 1px dashed gray;
+    border-radius: 5px;
+    background-color: #FFE56B;
+}
+
+div.story-preview div.completion {
+    padding: 5px;
+    font-size: 16px;
+}
+
+
+/*
+ * Story Bar
+ */
+
+div.story-bar {
+    width: 100%;
+    height: 15px;
+    margin: 5px 0;
+    box-shadow: 0 0 2px gray;
+}
+
+div.story-bar-fill {
+    height: 15px;
+    max-width: 100%;
+    background-color: #FFE56B;
 }
 
 
@@ -44,6 +148,10 @@ form.story textarea:focus {
     outline: none;
 }
 
+form.story textarea#id_body {
+    height: 220px;
+}
+
 form.story div.lead-in, form.story textarea#id_body {
     border-bottom: 1px dashed gray;
 }
@@ -67,6 +175,10 @@ form.story div.lead-in div.coverup {
         linear, left top, left bottom,
         from(rgba(255, 229, 107, 1)),
         to(rgba(0, 0, 0, 0)),
-        color-stop(.05,#FFE56B)
+        color-stop(.05, #FFE56B)
     );
+}
+
+form.story input#id_committed {
+    margin-top: 15px;
 }

@@ -3,6 +3,7 @@
 <html>
 <head>
 
+    <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 
     <title>
@@ -12,9 +13,26 @@
 </head>
 
 <body>
+
     <div id="content">
-    {% block content %}
-    {% endblock %}
+        <h2><a href="{% url 'home' %}">The Story Game</a></h2>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'write' %}">Write</a>
+            {% else %}
+            <a href="{% url 'login' %}">Log In</a>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+            <span class="username">
+                <em>{{ user }}</em>
+            </span>
+            {% endif %}
+        </nav>
+
+        {% block content %}
+        {% endblock %}
     </div>
 </body>
 </html>

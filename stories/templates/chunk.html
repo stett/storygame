@@ -4,7 +4,7 @@
 {% block content %}
 
 {#} Story Title {#}
-<h2>{{ story }}</h2>
+<h2>{{ story }} ({{ story.get_completion }}%)</h2>
 
 {#} Story Form {#}
 <form class="story" method="post">
@@ -12,12 +12,14 @@
 
     {# Previous Lead-in #}
     <div class="story-fields">
+        {% if story.get_last_chunk.lead_in %}
         <div class="lead-in">
             <div class="coverup"></div>
             <div class="content">
                 ... {{ story.get_last_chunk.lead_in|markdown }}
             </div>
         </div>
+        {% endif %}
         {{ form.body }}
         {{ form.lead_in }}
     </div>

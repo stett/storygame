@@ -5,9 +5,9 @@ from django.conf.urls.static import static
 
 urlpatterns = patterns(
     '',
+    url(r'^', include('stories.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^stories/', include('stories.urls')),
-    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html', }, name='login'),
 )
 
 if settings.DEBUG:

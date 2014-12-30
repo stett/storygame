@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
 from django.views.generic.edit import UpdateView, CreateView
@@ -12,10 +12,19 @@ from stories.forms import StoryChunkForm
 @login_required
 def dash(request):
     context = {
-        'stories': Story.objects.filter(authors__user=request.user),
-        'chunks': StoryChunk.objects.filter(user=request.user, committed=False),
+        'drafts': StoryChunk.objects.filter(user=request.user, committed=False),
+        'stories': Story.objects.filter(authors__user=request.user, completed=True),
     }
     return render(request, 'dash.html', context)
+
+
+def home(request):
+    context = {
+        'stories': Story.objects.all(),
+        'finished_stories': Story.objects.filter(completed=True),
+        'unfinished_stories': Story.objects.filter(completed=False),
+    }
+    return render(request, 'home.html', context)
 
 
 class StoryView(DetailView):
@@ -27,8 +36,20 @@ class StoryChunkEditMixin(LoginRequiredMixin):
     template_name = 'chunk.html'
     model = StoryChunk
 
-    def dispatch(self, request, story_pk, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
+        story_pk = kwargs.get('story_pk', None)
+
+        if not story_pk:
+            story = Story.objects.get_top(user=self.request.user)
+            chunk = story.get_current_chunk()
+            if chunk:
+                return redirect(reverse('write', args=[story.pk, chunk.pk]))
+            else:
+                return redirect(reverse('write', args=[story.pk]))
+
         self.story = Story.objects.get(pk=story_pk)
+        if self.story.completed:
+            raise Http404
         return super(StoryChunkEditMixin, self).dispatch(request, *args, **kwargs)
 
     def get_object(self):
@@ -44,9 +65,9 @@ class StoryChunkEditMixin(LoginRequiredMixin):
 
     def get_success_url(self):
         if self.object.committed:
-            return reverse('dash')
+            return reverse('home')
         else:
-            return reverse('chunk', args=[self.story.pk, self.object.pk])
+            return reverse('write', args=[self.story.pk, self.object.pk])
 
 
 class StoryChunkCreateView(StoryChunkEditMixin, CreateView):
