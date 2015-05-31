@@ -9,15 +9,6 @@ from stories.models import Story, StoryAuthor, StoryChunk
 from stories.forms import StoryChunkForm
 
 
-@login_required
-def dash(request):
-    context = {
-        'drafts': StoryChunk.objects.filter(user=request.user, committed=False),
-        'stories': Story.objects.filter(authors__user=request.user, completed=True),
-    }
-    return render(request, 'dash.html', context)
-
-
 def home(request):
     context = {
         'stories': Story.objects.all(),

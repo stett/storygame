@@ -3,56 +3,37 @@
 
 {% block content %}
 
-<p>
-    <em>Finished Stories</em>
-    {% for story in finished_stories %}
-    {#<div><a href="{% url 'story' story.pk %}">{{ story }}</a></div>#}
-    <a href="{% url 'story' story.pk %}">
-        <div class="story-bar">
-            <div class="story-bar-fill" style="width: 100%">
-                {{ story }}
-            </div>
-        </div>
-    </a>
-    {% endfor %}
-</p>
-
+{% if unfinished_stories %}
 <p>
     <em>Unfinished Stories</em>
     {% for story in unfinished_stories %}
     <div class="story-bar">
-        <div class="story-bar-fill" style="width: {{ story.get_completion }}%"></div>
+        <div class="story-bar-fill" style="width: {{ story.get_completion }}%">
+            {#{{ story.authors.all|length }}#}
+            {{ story.get_active_author }}
+        </div>
     </div>
     {% endfor %}
 </p>
+{% endif %}
 
+{% if finished_stories %}
+<p>
+    <em>Finished Stories</em>
 
-{% comment %}
-{# Finished Stories #}
-<h2>Finished Stories!</h2>
-{% for story in finished_stories %}
-<div class="story-preview">
-    <div class="title">{{ story }}</div>
-    <div class="preview">
-        <div class="coverdown"></div>
-        <div class="content">
-            {{ story.get_cat|clip:150|markdown }}
+    {% for story in finished_stories %}
+    <div class="story-preview">
+        <div class="title">{{ story }}</div>
+        <div class="preview">
+            <div class="coverdown"></div>
+            <div class="content">
+                {{ story.get_cat|clip:150|markdown }}
+            </div>
+            <a href="{% url 'story' story.pk %}">Read More!</a>
         </div>
-        <a href="{% url 'story' story.pk %}">Read More!</a>
     </div>
-</div>
-{% endfor %}
-
-{# In progress #}
-<h2> Stories In Progress</h2>
-{% for story in unfinished_stories %}
-<div class="story-preview">
-    <div class="title">{{ story }}</div>
-    <div class="completion">
-        {{ story.get_completion }}% complete!
-    </div>
-</div>
-{% endfor %}
-{% endcomment %}
+    {% endfor %}
+</p>
+{% endif %}
 
 {% endblock %}
